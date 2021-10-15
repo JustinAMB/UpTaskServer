@@ -3,6 +3,7 @@ const app = express();
 const db = require('./db');
 const dotenv = require('dotenv');
 dotenv.config({ path: "variables.env" });
+const { generarJWT } = require('./helpers/jwt');
 db.authenticate()
     .then(() => console.log("sirve"))
     .catch(error => console.log(error))
