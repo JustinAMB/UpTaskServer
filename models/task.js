@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const task = db.define('task', {
+const task = db.define('tasks', {
     descripcion: {
         type: Sequelize.STRING,
         allowNull: false
     },
     fecha: {
-        type: Sequelize.DATETIME,
+        type: Sequelize.DATE,
         allowNull: false,
 
     },

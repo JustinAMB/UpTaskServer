@@ -1,14 +1,14 @@
 const { response, request } = require('express');
 
-const project = require('../models/project');
-const crearProject = async(req, res) => {
+const task = require('../models/task');
+const crearTask = async(req, res) => {
 
     const fechaActual = new Date();
-    const { titulo, user } = req.body;
+    const { descripcion, project } = req.body;
     try {
-        const resultado = await project.create({
-            titulo,
-            user,
+        const resultado = await task.create({
+            descripcion,
+            project,
             estado: true,
             fecha: fechaActual.toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
@@ -24,7 +24,7 @@ const crearProject = async(req, res) => {
         } else {
             return res.status(401).json({
                 ok: false,
-                msg: 'Ha ocurrido un error,intentalo de nuevo',
+                msg: 'Ha ocurrido un error, intentalo de nuevo'
             });
         }
 
@@ -40,13 +40,13 @@ const crearProject = async(req, res) => {
 
 
 
-const listaProjects = async(req, res) => {
+const listaTasks = async(req, res) => {
 
 
-    const { user } = req.params;
+    const { project } = req.params;
     try {
-        const resultado = await project.findAll({
-            where: { user }
+        const resultado = await task.findAll({
+            where: { project }
         });
         if (resultado) {
 
@@ -73,4 +73,4 @@ const listaProjects = async(req, res) => {
 }
 
 
-module.exports = { listaProjects, crearProject }
+module.exports = { listaTasks, crearTask }
