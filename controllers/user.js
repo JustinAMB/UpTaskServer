@@ -1,16 +1,18 @@
 const { response, request } = require('express');
-const mysqlConnection = require('../database.js');
+
 const { generarJWT } = require('../helpers/jwt');
-const user = require('user');
-const { Where } = require('sequelize/types/lib/utils');
+const user = require('../models/user');
 
 
 
-const loginUser = async(req = request, res = response) => {
+
+const loginUser = async(req, res = response) => {
     try {
-        const { correo, password } = req.body;
+        console.log(req.body);
+        const { email, password } = req.body;
+
         const userLogin = await user.findOne({
-            where: { email: correo }
+            where: { email }
         });
         if (!userLogin) {
 
@@ -35,7 +37,7 @@ const loginUser = async(req = request, res = response) => {
             }
         }
     } catch (err) {
-        console.log(error);
+        console.log(err);
         return res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador'
@@ -77,7 +79,7 @@ const registroUser = async(req = request, res = response) => {
             });
         }
     } catch (err) {
-        console.log(error);
+        console.log(err);
         return res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador'
@@ -109,7 +111,7 @@ const revalidarToken = async(req, res = response) => {
 
 
     } catch (error) {
-        console.log(error);
+        console.log(err);
         return res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador'
@@ -122,4 +124,4 @@ const revalidarToken = async(req, res = response) => {
 
 }
 
-exports.module = { loginUser, registroUser, revalidarToken }
+module.exports = { loginUser, registroUser, revalidarToken }

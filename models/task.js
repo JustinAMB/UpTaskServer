@@ -2,16 +2,16 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const task = db.define('task', {
     descripcion: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     fecha: {
-        type: DataTypes.DATETIME,
+        type: Sequelize.DATETIME,
         allowNull: false,
 
     },
     estado: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false
     },
     project: {
@@ -24,4 +24,4 @@ const task = db.define('task', {
         primaryKey: true
     }
 });
-exports.module = task;
+module.exports = task;
