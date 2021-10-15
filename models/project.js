@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const task = db.define('task', {
-    descripcion: {
+const task = db.define('project', {
+    titulo: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -14,7 +14,7 @@ const task = db.define('task', {
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
-    project: {
+    user: {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
