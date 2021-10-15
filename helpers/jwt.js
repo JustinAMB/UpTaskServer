@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 
-const generarJWT = async(id, nombre) => {
+const generarJWT = async(id, username) => {
 
-    const payload = { id, nombre };
+    const payload = { id, username };
 
     return new Promise((resolve, reject) => {
 
@@ -12,9 +12,7 @@ const generarJWT = async(id, nombre) => {
         }, (err, token) => {
 
             if (err) {
-                // TODO MAL
-                console.log(err);
-                console.log('aqui');
+
                 console.log(process.env.SECRET_JWT_SEED);
                 reject(err);
 
