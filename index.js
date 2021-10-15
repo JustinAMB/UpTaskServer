@@ -11,4 +11,5 @@ app.set('port', process.env.PORT || 73);
 
 
 app.use('/api/User', require('./routes/user'));
+app.use('/api/Project', require('./routes/project'));
 app.listen(app.get('port'), () => { console.log(app.get('port')); });
