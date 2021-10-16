@@ -22,7 +22,7 @@ const loginUser = async(req, res = response) => {
             });
         } else {
             if (userLogin.password === password) {
-                const token = await generarToken(userLogin.id, userLogin.username);
+                const token = await generarJWT(userLogin.id, userLogin.username);
                 return res.status(200).json({
                     ok: true,
                     msg: 'Ingreso permitido',
@@ -47,8 +47,10 @@ const loginUser = async(req, res = response) => {
 const registroUser = async(req = request, res = response) => {
     try {
         const { email, password, username } = req.body;
-        const usuario = await user.findOne({ email });
-
+        const usuario = await user.findOne({
+            where: { email: email }
+        });
+        console.log(usuario);
         if (usuario) {
             return res.status(400).json({
                 ok: false,
@@ -62,7 +64,7 @@ const registroUser = async(req = request, res = response) => {
             password
         });
         if (resultado) {
-            const token = await generarToken(resultado.id, resultado.username);
+            const token = await generarJWT(resultado.id, resultado.username);
             return res.status(201).json({
                 ok: true,
                 msg: 'registro exitoso',
