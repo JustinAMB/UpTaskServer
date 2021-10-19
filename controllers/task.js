@@ -71,6 +71,55 @@ const listaTasks = async(req, res) => {
         });
     }
 }
+const cambiarEstadoTask = async(req, res) => {
+
+
+    const { id } = req.params;
+    try {
+        const resultado = await task.findByPk(id);
+        if (resultado) {
+            resultado.estado = !resultado.estado;
+
+
+
+
+
+
+
+
+
+
+
+
+            const taskUpdate = await task.update({
+                etado: resultado.estado,
+            }, {
+                where: {
+                    id: resultado.id,
+                }
+            });
+            return res.status(201).json({
+                ok: true,
+                msg: 'se ha actualizado exitosamente',
+                data: taskUpdate
+            });
+
+
+        } else {
+            return res.status(401).json({
+                ok: false,
+                msg: 'Ha ocurrido un error,intentalo de nuevo',
+            });
+        }
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
 
 
 module.exports = { listaTasks, crearTask }
