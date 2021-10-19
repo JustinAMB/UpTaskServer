@@ -92,7 +92,7 @@ const cambiarEstadoTask = async(req, res) => {
 
 
             const taskUpdate = await task.update({
-                etado: resultado.estado,
+                estado: resultado.estado,
             }, {
                 where: {
                     id: resultado.id,
@@ -122,4 +122,4 @@ const cambiarEstadoTask = async(req, res) => {
 }
 
 
-module.exports = { listaTasks, crearTask }
+module.exports = { listaTasks, crearTask, cambiarEstadoTask }
