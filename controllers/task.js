@@ -37,11 +37,7 @@ const crearTask = async(req, res) => {
     }
 }
 
-
-
-
 const listaTasks = async(req, res) => {
-
 
     const { project } = req.params;
     try {
@@ -101,7 +97,7 @@ const cambiarEstadoTask = async(req, res) => {
             return res.status(201).json({
                 ok: true,
                 msg: 'se ha actualizado exitosamente',
-                data: taskUpdate
+                data: resultado
             });
 
 
@@ -120,6 +116,45 @@ const cambiarEstadoTask = async(req, res) => {
         });
     }
 }
+const eliminarTask = async(req, res) => {
 
 
-module.exports = { listaTasks, crearTask, cambiarEstadoTask }
+    const { id } = req.params;
+    try {
+        const resultado = await task.findByPk(id);
+        if (resultado) {
+
+            const eliminado = await task.destroy({
+                where: {
+                    id: resultado.id,
+
+                }
+            });
+            return res.status(201).json({
+                ok: true,
+                msg: 'se ha eliminado exitosamente',
+                data: eliminado
+            });
+        } else {
+            return res.status(401).json({
+                ok: false,
+                msg: 'Ha ocurrido un error,intentalo de nuevo',
+            });
+        }
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            ok: false,
+            msg: 'Por favor hable con el administrador'
+        });
+    }
+}
+
+
+module.exports = {
+    listaTasks,
+    crearTask,
+    cambiarEstadoTask,
+    eliminarTask
+}
